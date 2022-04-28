@@ -68,8 +68,9 @@ app.layout = html.Div(
             [
                 'A timeseries analysis and trending of Russian military forces and corresponding losses. '
                 'These metrics use "conservative" sources and, therefore, should only by considered for reference only. ',
-                'For additional information about this project, refer to ',
-                html.A('github', href='http://github.com/mcpcpc/pvalue.xyz')
+                'Refer to ',
+                html.A('github', href='http://github.com/mcpcpc/pvalue.xyz'),
+                'for additional information about this project.'
             ]
         ),
         dcc.Dropdown(
