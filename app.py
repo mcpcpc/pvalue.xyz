@@ -70,7 +70,7 @@ app.layout = html.Div(
                 'These metrics use "conservative" sources and, therefore, should only by considered for reference only. ',
                 'Refer to ',
                 html.A('github', href='http://github.com/mcpcpc/pvalue.xyz'),
-                'for additional information about this project.'
+                ' for additional information about this project.'
             ]
         ),
         dcc.Dropdown(
