@@ -34,33 +34,28 @@ from plotly.subplots import make_subplots
 from dash import Dash, dcc, html, Input, Output
 from flask_caching import Cache
 
+CACHE_CONFIG = {
+    'CACHE_TYPE': 'filesystem',
+    'CACHE_DIR': 'cache-directory'
+}
+
+META_TAGS = [
+    {"name": "viewport", "content": "width=device-width, initial-scale=1"},
+    {"name": "description", "content": "A timeseries analysis and trending of Russian military forces and corresponding losses"},
+    {"name": "author", "content": "Michael Czigler"},
+    {"name": "keywords", "content": "Ukraine, Russia, War, Statistics, Trending, Losses"}
+] 
+
 def dataframe(value: str):
     return pandas.read_json(get(sources[value]['api']), orient='split')
 
 with open('sources.json', 'r') as f:
     sources = json.load(f)
-
-
-
-app = Dash(
-        __name__, 
-        meta_tags=[
-            {"name": "viewport", "content": "width=device-width, initial-scale=1"},
-            {"name": "description", "content": "A timeseries analysis and trending of Russian military forces and corresponding losses"},
-            {"name": "author", "content": "Michael Czigler"},
-            {"name": "keywords", "content": "Ukraine, Russia, War, Statistics, Trending, Losses"}
-        ]
-)
-
+    
+app = Dash(__name__, meta_tags=META_TAGS)
 server = app.server
-
-cache = Cache(server, config={
-    'CACHE_TYPE': 'filesystem',
-    'CACHE_DIR': 'cache-directory'
-})
-
+cache = Cache(server, config=CACHE_CONFIG)
 app.title ="Russian-Ukranian War"
-
 app.layout = html.Div(
     [
         html.H1('Russian-Ukrainian War'),
