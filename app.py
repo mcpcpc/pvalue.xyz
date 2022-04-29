@@ -44,7 +44,7 @@ CACHE_CONFIG = {
 DATE_SOURCES = {
     'minusrus': {
         'uri': 'https://www.minusrus.com/en',
-        'api': 'https://api.storyblok.com/v2/cdn/stories?cv=1650959599&starts_with=losses/&token=xqjd6rLprbjdQg3i06E8Pgtt&version=published'
+        'api': 'https://api.storyblok.com/v2/cdn/stories?cv=1651219553&starts_with=losses%2F&token=xqjd6rLprbjdQg3i06E8Pgtt&version=published'
     }
 }
 
