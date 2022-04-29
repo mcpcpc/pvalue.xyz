@@ -34,35 +34,37 @@ from plotly.subplots import make_subplots
 from dash import Dash, dcc, html, Input, Output
 from flask_caching import Cache
 
+MEMOIZE_TIMEOUT = 60
+
 CACHE_CONFIG = {
     'CACHE_TYPE': 'filesystem',
     'CACHE_DIR': 'cache-directory'
 }
 
-META_TAGS = [
-    {'name': 'viewport', 'content': 'width=device-width, initial-scale=1'},
-    {'name': 'description', 'content': 'A timeseries analysis and trending of Russian military forces and corresponding losses'},
-    {'name': 'author', 'content': 'Michael Czigler'},
-    {'name': 'keywords', 'content': 'Ukraine, Russia, War, Statistics, Trending, Losses'}
-] 
-
-SOURCES = {
+DATE_SOURCES = {
     'minusrus': {
         'uri': 'https://www.minusrus.com/en',
         'api': 'https://api.storyblok.com/v2/cdn/stories?cv=1650959599&starts_with=losses/&token=xqjd6rLprbjdQg3i06E8Pgtt&version=published'
     }
 }
 
-def dataframe(value: str):
-    return pandas.read_json(get(SOURCES[value]['api']), orient='split')
+HTML_ATTR = {
+    'title': 'Russian-Ukranian War',
+    'meta': [
+        {'name': 'viewport', 'content': 'width=device-width, initial-scale=1'},
+        {'name': 'description', 'content': 'A timeseries analysis and trending of Russian military forces and corresponding losses'},
+        {'name': 'author', 'content': 'Michael Czigler'},
+        {'name': 'keywords', 'content': 'Ukraine, Russia, War, Statistics, Trending, Losses'}
+    ] 
+}
 
-#with open('sources.json', 'r') as f:
-#    sources = json.load(f)
-    
-app = Dash(__name__, meta_tags=META_TAGS)
+def dataframe(value: str):
+    return pandas.read_json(get(DATE_SOURCES[value]['api']), orient='split')
+
+app = Dash(__name__, meta_tags=HTML_ATTR['meta'])
 server = app.server
 cache = Cache(server, config=CACHE_CONFIG)
-app.title ="Russian-Ukranian War"
+app.title = HTML_ATTR['title']
 app.layout = html.Div(
     [
         html.H1('Russian-Ukrainian War'),
@@ -96,7 +98,7 @@ app.layout = html.Div(
     ]
 )
 
-@cache.memoize(timeout=60)
+@cache.memoize(timeout=MEMOIZE_TIMEOUT)
 def get(api: str):
     resp = requests.get(api)
     json = resp.json()
