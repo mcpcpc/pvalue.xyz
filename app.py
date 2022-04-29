@@ -40,11 +40,18 @@ CACHE_CONFIG = {
 }
 
 META_TAGS = [
-    {"name": "viewport", "content": "width=device-width, initial-scale=1"},
-    {"name": "description", "content": "A timeseries analysis and trending of Russian military forces and corresponding losses"},
-    {"name": "author", "content": "Michael Czigler"},
-    {"name": "keywords", "content": "Ukraine, Russia, War, Statistics, Trending, Losses"}
+    {'name': 'viewport', 'content': 'width=device-width, initial-scale=1'},
+    {'name': 'description', 'content': 'A timeseries analysis and trending of Russian military forces and corresponding losses'},
+    {'name': 'author', 'content': 'Michael Czigler'},
+    {'name': 'keywords', 'content': 'Ukraine, Russia, War, Statistics, Trending, Losses'}
 ] 
+
+SOURCES = {
+	"minusrus": {
+		"uri": "https://www.minusrus.com/en",
+		"api": "https://api.storyblok.com/v2/cdn/stories?cv=1650959599&starts_with=losses/&token=xqjd6rLprbjdQg3i06E8Pgtt&version=published"
+	}
+}
 
 def dataframe(value: str):
     return pandas.read_json(get(sources[value]['api']), orient='split')
