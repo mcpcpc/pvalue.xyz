@@ -86,14 +86,8 @@ app.layout = html.Div(
             value='minusrus',
             id='sources'
         ),
-        dcc.Graph(
-            id='trending-infantry',
-            #style={'height':'45vh'}
-        ),
-        dcc.Graph(
-            id='trending-equipment',
-            #style={'height':'45vh'}
-        ),
+        dcc.Loading(dcc.Graph(id='trending-infantry')),
+        dcc.Loading(dcc.Graph(id='trending-equipment')),
         html.Footer('Copyright \xa9 2022 Michael Czigler. All Rights Reserved')
     ]
 )
