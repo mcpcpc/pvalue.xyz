@@ -124,7 +124,7 @@ def update_figure(value):
     equipment = px.area(
             df, 
             x='date', 
-            y=['artillery', 'aircraft', 'helicopters', 'tanks', 'armored', 'ships']
+            y=['armored', 'tanks', 'artillery', 'aircraft', 'helicopters', 'ships']
     )
     infantry.update_traces(hovertemplate=None)
     infantry.update_layout(
