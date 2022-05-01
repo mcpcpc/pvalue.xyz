@@ -31,5 +31,6 @@ chdir = '/root'
 bind = ':80'
 workers = multiprocessing.cpu_count() * 2 + 1
 threads = multiprocessing.cpu_count() * 2 + 1
+worker-connections = 1000 * workers
 errorlog = '/tmp/gunicorn.log'
 loglevel = 'warning'
